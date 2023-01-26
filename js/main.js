@@ -147,20 +147,150 @@ const app3 = Vue.createApp({
         return { count: 4 }
     }
 })
-
 const vm3 = app3.mount('#app3')
-
 console.log(vm3.$data.count) // => 4
 console.log(vm3.count)       // => 4
-
 // Присвоение значения в vm.count также обновит $data.count
 vm3.count = 5
 console.log(vm3.$data.count) // => 5
-
 // ... и наоборот
 vm3.$data.count = 6
 console.log(vm3.count) // => 6
 
+const app4 = Vue.createApp({
+    data() {
+        return { count: 4 }
+    },
+    methods: {
+        increment() {
+            // `this` указывает на экземпляр компонента
+            this.count++
+        }
+    }
+})
+const vm4 = app4.mount('#app4')
+console.log(vm4.count) // => 4
+vm4.increment()
+console.log(vm4.count) // => 5
+
+const computedBasics = Vue.createApp({
+    data() {
+        return {
+            author: {
+                name: 'John Doe',
+                books: [
+                    'Vue 2 - Advanced Guide',
+                    'Vue 3 - Basic Guide',
+                    'Vue 4 - The Mystery'
+                ]
+            }
+        }
+    }
+}).mount('#computed-basics')
+
+Vue.createApp({
+    data() {
+        return {
+            author: {
+                name: 'John Doe John',
+                books: [
+                    // 'Vue 2 - Advanced Guide',
+                    // 'Vue 3 - Basic Guide',
+                    // 'Vue 4 - The Mystery'
+                ]
+            }
+        }
+    },
+    computed: {
+        // геттер вычисляемого свойства
+        publishedBooksMessage() {
+            // `this` указывает на экземпляр vm
+            return this.author.books.length > 0 ? 'Да' : 'Нет'
+        },
+        // НЕ БУДЕТ РАБОТАТЬ
+        // Date.now() не является реактивной зависимостью
+        // вызов метода будет всегда запускать функцию, когда будет перерисовка
+        now() {
+            return Date.now()
+        },
+        fullName: {
+            // геттер (для получения значения)
+            get() {
+                return this.firstName + ' ' + this.lastName
+            },
+            // сеттер (при присвоении нового значения)
+            set(newValue) {
+                const names = newValue.split(' ')
+                this.firstName = names[0]
+                this.lastName = names[names.length - 1]
+            }
+        }
+    }
+}).mount('#computed-basics2')
+
+const watchExampleVM = Vue.createApp({
+    data() {
+        return {
+            question: '',
+            answer: 'Вопросы обычно заканчиваются вопросительным знаком. ;-)'
+        }
+    },
+    watch: {
+        // при каждом изменении `question` эта функция будет запускаться
+        question(newQuestion, oldQuestion) {
+            if (newQuestion.indexOf('?') > -1) {
+                this.getAnswer()
+            }
+        }
+    },
+    methods: {
+        getAnswer() {
+            this.answer = 'Думаю...'
+            axios
+                .get('https://yesno.wtf/api')
+                .then(response => {
+                    this.answer = response.data.answer
+                })
+                .catch(error => {
+                    this.answer = 'Ошибка! Нет доступа к API. ' + error
+                })
+        }
+    }
+}).mount('#watch-example')
+
+const random2 = Vue.createApp({
+    data() {
+        return {
+            type: 'Cc',
+            ok: false
+        }
+    }
+}).mount('#random2');
+
+Vue.createApp({
+    data() {
+        return {
+            ok:true,
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    }
+}).mount('#array-rendering')
+
+Vue.createApp({
+    data() {
+        return {
+            ok:true,
+            parentMessage: 'Родитель',
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    }
+}).mount('#array-with-index')
 
 
 

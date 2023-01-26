@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="css/style.css">
     <!--    <script src="https://unpkg.com/vue@next"></script>-->
     <script src="node_modules/vue/dist/vue.global.js"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 </head>
 <body>
 <div id="hello-vue" class="demo">
@@ -77,8 +76,12 @@
 </div>
 <hr/>
 <br/>
-<div id="app2"></div>
-<div id="app3"></div>
+<div id="app2">Счётчик: {{ count }}</div>
+<div id="app3">Счётчик: {{ count }}</div>
+<div id="app4">
+    Счётчик: {{ count }}
+    <button @click="increment">Увеличить счётчик</button>
+</div>
 <hr/>
 <br/>
 <div id="example1" class="demo">
@@ -87,10 +90,81 @@
 </div>
 <hr/>
 <br/>
+<div id="computed-basics">
+    <p>Есть опубликованные книги:</p>
+    <p>{{ author.name }}</p>
+    <span>{{ author.books.length > 0 ? 'Да' : 'Нет' }}</span>
+</div>
+<hr/>
+<br/>
+<div id="computed-basics2">
+    <p>Есть опубликованные книги:</p>
+    <p>{{ author.name }}</p>
+    <span>{{ publishedBooksMessage }}</span><br/>
+    <span>{{ now }}</span><br/>
+    <span>{{ fullName = 'Sergey Tsvetaev' }}</span>
+</div>
+<hr/>
+<br/>
+<div id="watch-example">
+    <p>
+        Задайте вопрос, на который можно ответить «да» или «нет»:
+        <input v-model="question" />
+    </p>
+    <p>{{ answer }}</p>
+</div>
+<hr/>
+<br/>
+<div id="random2">
+    <div v-if="Math.random(0, 1) > 0.5">
+        Сейчас меня видно
+    </div>
+    <div v-else>
+        А теперь — нет
+    </div>
+    <hr/>
+    <br/>
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+    <div v-else>
+        Точно не A, B или C
+    </div>
+    <h1 v-show="ok">Привет!</h1>
+</div>
+<hr/>
+<br/>
+<ul id="array-rendering">
+    <h3 v-show="ok">Spisok!</h3>
+    <li v-for="item in items">
+        {{ item.message }}
+    </li>
+</ul>
+<hr/>
+<br/>
+<ul id="array-with-index">
+    <h3 v-show="ok">Spisok!</h3>
+    <li v-for="(item, index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </li>
+</ul>
+<hr/>
+<br/>
 
 <hr/>
 <br/>
 
+<hr/>
+<br/>
+
+<hr/>
+<br/>
 <!--<script src="https://unpkg.com/vue@next"></script>-->
 <script src="js/main.js"></script>
 </body>
