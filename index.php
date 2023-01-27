@@ -109,7 +109,7 @@
 <div id="watch-example">
     <p>
         Задайте вопрос, на который можно ответить «да» или «нет»:
-        <input v-model="question" />
+        <input v-model="question"/>
     </p>
     <p>{{ answer }}</p>
 </div>
@@ -156,7 +156,154 @@
 </ul>
 <hr/>
 <br/>
-
+<ul id="v-for-object" class="demo">
+    <!--    <li v-for="value in myObject">-->
+    <!--        {{ value }}-->
+    <!--    </li>-->
+    <!--    <li v-for="(value, name) in myObject">-->
+    <!--        {{ name }}: {{ value }}-->
+    <!--    </li>-->
+    <li v-for="(value, name, index) in myObject">
+        {{ index }}. {{ name }}: {{ value }}
+    </li>
+</ul>
+<hr/>
+<br/>
+<div id="range" class="demo">
+    <span v-for="n in 10" :key="n">{{ n }}</span>
+</div>
+<hr/>
+<br/>
+<div id="todo-list-example">
+    <form v-on:submit.prevent="addNewTodo">
+        <label for="new-todo">Добавить задачу</label>
+        <input
+                v-model="newTodoText"
+                id="new-todo"
+                placeholder="Например, покормить кота"
+        />
+        <button>Добавить</button>
+    </form>
+    <ul>
+        <todo-item
+                v-for="(todo, index) in todos"
+                :key="todo.id"
+                :title="todo.title"
+                @remove="todos.splice(index, 1)"
+        ></todo-item>
+    </ul>
+</div>
+<hr/>
+<br/>
+<div id="basic-event">
+    <button @click="counter += 1">Добавить 1</button>
+    <p>Кнопка выше была нажата {{ counter }} раз</p>
+</div>
+<hr/>
+<br/>
+<div id="event-with-method">
+    <!-- `greet` — это название метода, объявленного ниже -->
+    <button @click="greet">Поприветствовать</button>
+</div>
+<hr/>
+<br/>
+<div id="inline-handler">
+    <button @click="say('hi')">Скажи hi</button>
+    <button @click="say('what')">Скажи what</button>
+    <button @click="warn('Форма не может быть отправлена.', $event)">
+        Отправить
+    </button>
+    <button @click="one($event), two($event)">
+        ОтправитьOneTwo
+    </button>
+</div>
+<hr/>
+<br/>
+<div id="v-model-basic" class="demo">
+    <div id="v-model-basic" class="demo">
+        <input v-model="message" placeholder="отредактируй меня"/>
+        <p>Сообщение: {{ message }}</p>
+    </div>
+</div>
+<hr/>
+<br/>
+<div id="v-model-textarea" class="demo">
+    <div id="v-model-textarea" class="demo">
+        <span>Многострочное сообщение:</span>
+        <p style="white-space: pre-line;">{{ message }}</p>
+        <br/>
+        <textarea v-model="message" placeholder="введите несколько строчек"></textarea>
+        <!--        <textarea v-model.lazy="message" placeholder="введите несколько строчек"></textarea>-->
+        <br/><br/><br/>
+        <span>Введите текс, который необходимо преобразовать в число:</span>
+        <p style="white-space: pre-line;">{{ age }}</p>
+        <br/>
+        <input v-model.number="age" type="text"/>
+        <br/><br/><br/>
+        <span>Введите текс, в котором нужно убрать пробелы в начале и в конце:</span>
+        <p style="white-space: pre-line;">{{ msg }}</p>
+        <br/>
+        <input v-model.trim="msg">
+    </div>
+</div>
+<hr/>
+<br/>
+<div id="v-model-checkbox" class="demo">
+    <input type="checkbox" id="checkbox" v-model="checked"/>
+    <label for="checkbox">{{ checked }}</label>
+</div>
+<hr/>
+<br/>
+<div id="v-model-multiple-checkboxes" class="demo">
+    <input type="checkbox" id="jack" value="Джек" v-model="checkedNames"/>
+    <label for="jack">Джек</label>
+    <input type="checkbox" id="john" value="Джон" v-model="checkedNames"/>
+    <label for="john">Джон</label>
+    <input type="checkbox" id="mike" value="Майк" v-model="checkedNames"/>
+    <label for="mike">Майк</label>
+    <br/>
+    <span>Отмеченные имена: {{ checkedNames }}</span>
+</div>
+<hr/>
+<br/>
+<div id="v-model-radiobutton" class="demo">
+    <input type="radio" id="one" value="Один" v-model="picked"/>
+    <label for="one">Один</label>
+    <br/>
+    <input type="radio" id="two" value="Два" v-model="picked"/>
+    <label for="two">Два</label>
+    <br/>
+    <span>Выбрано: {{ picked }}</span>
+</div>
+<hr/>
+<br/>
+<div id="v-model-select" class="demo">
+    <select v-model="selected">
+        <option disabled value="">Выберите один из вариантов</option>
+        <option>А</option>
+        <option>Б</option>
+        <option>В</option>
+    </select>
+    <span>Выбрано: {{ selected }}</span><br/>
+    <select v-model="selected" multiple>
+        <option>А</option>
+        <option>Б</option>
+        <option>В</option>
+    </select>
+    <br/>
+    <span>Выбраны: {{ selected }}</span>
+</div>
+<hr/>
+<br/>
+<div id="v-model-select-dynamic" class="demo">
+    <select v-model="selected">
+        <option disabled value="">Выберите один из вариантов</option>
+        <option v-for="option in options" :value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    <span>Выбрано: {{ selected }}</span>
+</div>
 <hr/>
 <br/>
 
@@ -165,6 +312,13 @@
 
 <hr/>
 <br/>
+
+<hr/>
+<br/>
+
+<hr/>
+<br/>
+
 <!--<script src="https://unpkg.com/vue@next"></script>-->
 <script src="js/main.js"></script>
 </body>

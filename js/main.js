@@ -292,6 +292,175 @@ Vue.createApp({
     }
 }).mount('#array-with-index')
 
+Vue.createApp({
+    data() {
+        return {
+            myObject: {
+                title: 'How to do lists in Vue',
+                author: 'Jane Doe',
+                publishedAt: '2016-04-10'
+            }
+        }
+    }
+}).mount('#v-for-object')
+Vue.createApp({}).mount('#range')
+
+const app5 = Vue.createApp({
+    data() {
+        return {
+            newTodoText: '',
+            todos: [
+                {
+                    id: 1,
+                    title: 'Do the dishes'
+                },
+                {
+                    id: 2,
+                    title: 'Take out the trash'
+                },
+                {
+                    id: 3,
+                    title: 'Mow the lawn'
+                }
+            ],
+            nextTodoId: 4
+        }
+    },
+    methods: {
+        addNewTodo() {
+            this.todos.push({
+                id: this.nextTodoId++,
+                title: this.newTodoText
+            })
+            this.newTodoText = ''
+        }
+    }
+})
+app5.component('todo-item', {
+    template: `
+    <li>
+      {{ title }}
+      <button @click="$emit('remove')">Удалить</button>
+    </li>
+  `,
+    props: ['title'],
+    emits: ['remove']
+})
+app5.mount('#todo-list-example')
+
+Vue.createApp({
+    data() {
+        return {
+            counter: 0
+        }
+    }
+}).mount('#basic-event')
+
+Vue.createApp({
+    data() {
+        return {
+            name: 'Vue.js'
+        }
+    },
+    methods: {
+        greet(event) {
+            // `this` в методе указывает на текущий активный экземпляр
+            alert('Привет, ' + this.name + '!')
+            // `event` — нативное событие DOM
+            if (event) {
+                alert(event.target.tagName)
+            }
+        }
+    }
+}).mount('#event-with-method')
+
+Vue.createApp({
+    methods: {
+        say(message) {
+            alert(message)
+        },
+        warn(message, event) {
+            // теперь есть доступ к нативному событию
+            if (event) {
+                event.preventDefault()
+            }
+            alert(message)
+        },
+        one(event) {
+            // логика первого обработчика события...
+            alert('one')
+        },
+        two(event) {
+            // логика второго обработчика события...
+            alert('two')
+        }
+    }
+}).mount('#inline-handler')
+
+Vue.createApp({
+    data() {
+        return {
+            message: ''
+        }
+    }
+}).mount('#v-model-basic')
+
+Vue.createApp({
+    data() {
+        return {
+            message: '',
+            age: '',
+            msg: '',
+        }
+    }
+}).mount('#v-model-textarea')
+
+Vue.createApp({
+    data() {
+        return {
+            checked: false,
+        }
+    }
+}).mount('#v-model-checkbox')
+
+Vue.createApp({
+    data() {
+        return {
+            checkedNames: []
+        }
+    }
+}).mount('#v-model-multiple-checkboxes')
+
+Vue.createApp({
+    data() {
+        return {
+            picked: ''
+        }
+    }
+}).mount('#v-model-radiobutton')
+
+Vue.createApp({
+    data() {
+        return {
+            selected: ''
+        }
+    }
+}).mount('#v-model-select')
+
+Vue.createApp({
+    data() {
+        return {
+            selected: '',
+            options: [
+                { text: 'Один', value: 'A' },
+                { text: 'Два', value: 'B' },
+                { text: 'Три', value: 'C' }
+            ]
+        }
+    }
+}).mount('#v-model-select-dynamic')
+
+
 
 
 
