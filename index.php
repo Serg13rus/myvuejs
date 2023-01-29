@@ -285,13 +285,13 @@
         <option>В</option>
     </select>
     <span>Выбрано: {{ selected }}</span><br/>
-    <select v-model="selected" multiple>
-        <option>А</option>
-        <option>Б</option>
-        <option>В</option>
-    </select>
+<!--    <select v-model="selected" multiple>-->
+<!--        <option>А</option>-->
+<!--        <option>Б</option>-->
+<!--        <option>В</option>-->
+<!--    </select>-->
     <br/>
-    <span>Выбраны: {{ selected }}</span>
+<!--    <span>Выбраны: {{ selected }}</span>-->
 </div>
 <hr/>
 <br/>
@@ -304,6 +304,71 @@
     </select>
     <span>Выбрано: {{ selected }}</span>
 </div>
+<hr/>
+<br/>
+<div id="button-counter">
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+</div>
+<hr/>
+<br/>
+<div id="blog-post-demo" class="demo">
+    <blog-post title="My journey with Vue"></blog-post>
+    <blog-post title="Blogging with Vue"></blog-post>
+    <blog-post title="Why Vue is so fun"></blog-post>
+</div>
+<hr/>
+<br/>
+<div id="blog-posts-demo" class="demo">
+    <div :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post
+                v-for="post in posts"
+                :key="post.id"
+                :title="post.title"
+                @enlarge-text="postFontSize += $event"
+        ></blog-post>
+    </div>
+</div>
+<hr/>
+<br/>
+<div id="custom-input-demo" class="demo">
+<!--    <custom-input-->
+<!--            :model-value="searchText"-->
+<!--            @update:model-value="searchText = $event"-->
+<!--    ></custom-input>-->
+    <custom-input></custom-input>
+</div>
+<hr/>
+<br/>
+<div id="slots-demo" class="demo">
+    <alert-box>
+        Произошло что-то плохое.
+    </alert-box>
+</div>
+<hr/>
+<br/>
+<div id="dynamic-component-demo" class="demo">
+    <button
+            v-for="tab in tabs"
+            v-bind:key="tab"
+            v-bind:class="['tab-button', { active: currentTab === tab }]"
+            v-on:click="currentTab = tab"
+    >
+        {{ tab }}
+    </button>
+
+    <component v-bind:is="currentTabComponent" class="tab"></component>
+</div>
+<hr/>
+<br/>
+
+<hr/>
+<br/>
+
+<hr/>
+<br/>
+
 <hr/>
 <br/>
 

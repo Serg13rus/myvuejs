@@ -460,7 +460,125 @@ Vue.createApp({
     }
 }).mount('#v-model-select-dynamic')
 
+// Создаём приложение Vue
+const app6 = Vue.createApp({})
+// Определяем новый глобальный компонент с именем button-counter
+app6.component('button-counter', {
+    data() {
+        return {
+            count: 0
+        }
+    },
+    template: `
+    <button @click="count++">
+      Счётчик кликов — {{ count }}
+    </button>`
+}).mount('#button-counter')
 
+const app7 = Vue.createApp({})
+app7.component('blog-post', {
+    props: ['title'],
+    template: `<h4>{{ title }}</h4>`
+})
+app7.mount('#blog-post-demo')
+
+const Apps = {
+    data() {
+        return {
+            // posts: [
+            //     { id: 1, title: 'My journey with Vue!!!' },
+            //     { id: 2, title: 'Blogging with Vue!!!' },
+            //     { id: 3, title: 'Why Vue is so fun!!!' }
+            // ],
+            // text: '',
+            postFontSize: 1,
+            // emits: [
+            //     'update:modelValue',
+            //     'enlargeText',
+            // ],
+        }
+    },
+    methods: {
+        onEnlargeText(enlargeAmount) {
+            this.postFontSize += enlargeAmount
+        },
+        // 'onUpdate:modelValue'(text) {
+        //     this.text = text
+        // }
+    }
+}
+// const app8 = Vue.createApp(Apps)
+// app8.component('blog-post', {
+//     props: ['title'],
+//     template: `
+//     <div class="blog-post">
+//       <h4>{{ title }}</h4>
+//       <button @click="$emit('enlargeText', 0.1)">
+//         Увеличить размер текста
+//       </button>
+//     </div>
+//   `
+// })
+// app8.mount('#blog-posts-demo')
+
+const app9 = Vue.createApp(Apps)
+app9.component('custom-input', {
+    props: ['modelValue'],
+    emits: ['update:modelValue'],
+    template: `
+    <input v-model="value">
+  `,
+    computed: {
+        value: {
+            get() {
+                return this.modelValue
+            },
+            set(value) {
+                this.$emit('update:modelValue', value)
+            }
+        }
+    }
+})
+app9.mount('#custom-input-demo')
+
+const app10 = Vue.createApp({})
+
+app10.component('alert-box', {
+    template: `
+    <div class="demo-alert-box">
+      <strong>Error!</strong>
+      <slot></slot>
+    </div>
+  `
+})
+
+app10.mount('#slots-demo')
+
+const app11 = Vue.createApp({
+    data() {
+        return {
+            currentTab: 'Home',
+            tabs: ['Home', 'Posts', 'Archive']
+        }
+    },
+    computed: {
+        currentTabComponent() {
+            return 'tab-' + this.currentTab.toLowerCase()
+        }
+    }
+})
+
+app11.component('tab-home', {
+    template: `<div class="demo-tab">Home component</div>`
+})
+app11.component('tab-posts', {
+    template: `<div class="demo-tab">Posts component</div>`
+})
+app11.component('tab-archive', {
+    template: `<div class="demo-tab">Archive component</div>`
+})
+
+app11.mount('#dynamic-component-demo')
 
 
 
